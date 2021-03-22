@@ -1,42 +1,51 @@
-import logo from './logo.svg';
+import React, {useState} from 'react'
+import words from 'lodash.words'
 import './App.css';
 import Result from "./components/Result";
-import Button from "./components/Button";
 import MathOperations from "./components/MathOperations";
+import Functions from "./components/Functions";
+import Numbers from "./components/Numbers";
 
 function App() {
-    // Lo que ejecuta la función
-    console.log("Renderización de App");
 
-    const clickHandlerFunction = text =>{
-        console.log("el texto es: " + text)
-    };
+    // Posición 1 del useState es el valor  //Posición 2 del useState es una función que modifica el valor
+    const [stack, setStack] = useState("");
+
+    const items = words(stack, /[^-^+^*^/]+/g);
+    const result = items.length > 0 ? items[items.length-1] : 0;
 
     return (
         <main className='react-calculator'>
-            <Result value={"10"}/>
-            <div className="numbers">
-                <Button text={"1"} clickHandler={clickHandlerFunction}/>
-                <button>2</button>
-                <button>3</button>
-                <button>4</button>
-                <button>5</button>
-                <button>6</button>
-                <button>7</button>
-                <button>8</button>
-                <button>9</button>
-                <button>0</button>
-            </div>
-            <div className="functions">
-                <button>
-                    clear
-                </button>
-                <button>
-                    r
-                </button>
-            </div>
-            <MathOperations onClickEquals={equals => {console.log(equals)}}
-                            onClickOperation={operation => {console.log(operation)}}/>
+            <Result value={result.toString()} history={stack}/>
+            <Numbers onClickNumber={number => {
+                console.log(number);
+                setStack(`${stack}${number}`)}
+            }/>
+            <Functions onContentClear={() => {
+                console.log("content clear");
+                setStack("");
+            }
+            }
+           onDelete={()=>{
+               console.log("Delete");
+               if(stack.length > 0){
+                   const newStack = stack.substr(0, stack.length -1);
+                   setStack(`${newStack}`)
+               }
+
+           }
+           }/>
+            <MathOperations onClickEquals={equals => {
+                console.log(equals);
+                setStack((eval(stack)).toString());
+            }
+            }
+            onClickOperation={operation => {
+                console.log(operation);
+                setStack(`${stack}${operation}`)
+            }
+            }
+            />
 
         </main>
     )

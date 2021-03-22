@@ -1,6 +1,6 @@
 import React from 'react'
 import PropType from 'prop-types'
-import Button from "./Button";
+import Button from "./Button/Button";
 
 const MathOperations = ({onClickOperation, onClickEquals}) =>{
     /*const sum = ()=>{

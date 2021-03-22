@@ -44,17 +44,23 @@ button:hover {
 .result {
   position: relative;
   width: 320px;
-  height: 80px;
+  height: auto;
   padding: 8px;
   overflow: hidden;
   background-color: rgba(19, 19, 19, .64);
   font-size: 32px;
-  line-height: 2;
+  line-height: 1.5;
   color: #60d63c;
   text-align: right;
   direction: rtl;
   white-space: nowrap;
   box-sizing: border-box;
+}
+.result p{
+  font-size: 10px;
+  color: #dddddd;
+  padding: 0px;
+  margin: 0px;
 }
 
 .functions button, .math-operations button {
